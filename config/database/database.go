@@ -6,8 +6,6 @@ type Database struct {
 	username string
 	password string
 	dbName   string
-	path     string
-	dsn      string
 }
 
 func New() *Database {
@@ -18,9 +16,12 @@ func Default() *Database {
 	return &Database{
 		address: "localhost",
 		port:    5432,
-		path:    "./",
-		dsn:     "gothic_db",
+		dbName:  "gothic_db",
 	}
+}
+
+func (db *Database) DBName() string {
+	return db.dbName
 }
 
 func (db *Database) Username() string {
@@ -37,14 +38,6 @@ func (db *Database) Address() string {
 
 func (db *Database) Port() uint {
 	return db.port
-}
-
-func (db *Database) DSN() string {
-	return db.dsn
-}
-
-func (db *Database) IsDSNEmpty() bool {
-	return db.dsn == ""
 }
 
 func (db *Database) IsValid() bool {
